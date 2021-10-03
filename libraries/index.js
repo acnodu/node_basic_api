@@ -1,5 +1,1 @@
-import auth from "./lib_auth"
-
-export { 
-    auth
-};
+module.exports.user = require('./lib_user')
