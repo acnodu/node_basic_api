@@ -37,8 +37,8 @@ _user.login = async (req, res) => {
 
 
 _user.auth = async (req, res, next) => {
-    let token = req.headers['authorization'] ? req.headers['authorization'].split(' ')[1] : false
-    
+    const token = req.body.token || req.query.token || req.headers['authorization'].split(' ')[1] || false
+
     if( ! token ){
         return send( res, {
             error: 'Token not found.'
