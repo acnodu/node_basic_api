@@ -1,6 +1,23 @@
+const { logger } = require('./')
+
 let user = {}
 
+user.login = async (username, password) => {
+    logger.debug('> user.login')
+
+    if( username != 'acnodu' || password != 'acnodu' ){
+        return false
+    }
+
+    let id = 2
+
+    return await user.info_by_id(id)
+}
+
+
 user.info_by_id = async (id, all=false) => {
+    logger.debug('> user.info_by_id')
+
     let data = {
         id: id,
         is_admin: true,

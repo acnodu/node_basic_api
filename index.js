@@ -1,10 +1,11 @@
 //////////////////////////////////////////////////////////////////
 // Packages
 //
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 //
-const routes = require('./routes');
+const { config, logger } =  require('./libraries')
+const routes = require('./routes')
 //////////////////////////////////////////////////////////////////
 
 app.use(express.json());
@@ -24,10 +25,13 @@ app.use((req, res, next) => {
         return res.end()
     }
 
+    logger.debug(req.method + ' ' + req.url)
+    logger.debug('Body : ' + JSON.stringify(req.body, null, 4))
+
     next()
 })
 //////////////////////////////////////////////////////////////////
 
 app.use('/', routes);
 
-app.listen(3000);
+app.listen(config.app.port);
