@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const { send } = require('./')
-const { user } = require('./../../libraries')
+const { user } = require(process.cwd() + '/libraries')
 
 let _user = {}
 
@@ -34,7 +34,6 @@ _user.login = async (req, res) => {
         })
     })
 }
-
 
 _user.auth = async (req, res, next) => {
     const token = req.body.token || req.query.token || req.headers['authorization'].split(' ')[1] || false
