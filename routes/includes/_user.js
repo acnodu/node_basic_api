@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const { send } = require('./')
-const { user } = require(process.cwd() + '/libraries')
+const { config, user } = require(process.cwd() + '/libraries')
 
 let _user = {}
 
@@ -24,9 +24,9 @@ _user.login = async (req, res) => {
         iat: Math.floor(Date.now() / 1000) - 30,
     }
 
-    jwt.sign(data, 'secret', {
-        algorithm: 'HS512',
-        expiresIn: '1m'
+    jwt.sign(data, config.jwt.secret, {
+        algorithm: config.jwt.algorithm,
+        expiresIn: config.jwt.expiration
     }, (err, token) => {
         send(res, {
             _msg: "Authentification ok !",
@@ -44,7 +44,7 @@ _user.auth = async (req, res, next) => {
         }, 401)
     }
 
-    jwt.verify(token, 'secret', { algorithms: 'HS512' }, (err, data) => {
+    jwt.verify(token, config.jwt.secret, { algorithms: config.jwt.algorithm }, (err, data) => {
         if( err ){
             return send( res, {
                 error: 'Invalid token. ('+ err.message +')'

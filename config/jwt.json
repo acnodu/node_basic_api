@@ -1,0 +1,5 @@
+{
+    "secret" : "yoursecrethere",
+    "algorithm": "HS512",
+    "expiration": "20m"
+}
